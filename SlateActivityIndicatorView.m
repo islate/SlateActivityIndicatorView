@@ -96,27 +96,27 @@
         _image = [[UIImageView alloc] initWithFrame:f];
         if (_style == ActivityIndicatorViewStyleWhite)
         {
-            _image.image = [UIImage imageNamed:@"iweekly_ipad/bg_activity_indicator_white"];
+            _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/ipad_white"];
             if (IsPhone)
             {
-                _image.image = [UIImage imageNamed:@"iweekly/bg/bg_activity_indicator_white"];
+                _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/iphone_white"];
             }
         }
         else if (_style == ActivityIndicatorViewStyleWhiteLarge)
         {
-            _image.image = [UIImage imageNamed:@"iweekly_ipad/bg_activity_indicator_white_large"];
+            _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/white_large"];
         }
         else if (_style == ActivityIndicatorViewStyleGray)
         {
-            _image.image = [UIImage imageNamed:@"iweekly_ipad/bg_activity_indicator"];
+            _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/ipad_gray"];
             if (IsPhone)
             {
-                _image.image = [UIImage imageNamed:@"iweekly/bg/bg_activity_indicator"];
+                _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/iphone_gray"];
             }
         }
         else
         {
-            _image.image = [UIImage imageNamed:@"iweekly_ipad/bg_activity_indicator_large"];
+            _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/gray_large"];
         }
         [self addSubview:_image];
     }
