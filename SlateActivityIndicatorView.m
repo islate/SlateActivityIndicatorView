@@ -9,6 +9,33 @@
 #import "SlateActivityIndicatorView.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define IsPhone ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+
+@interface UIImage (imageNamedInBundle)
++ (UIImage*)imageNamed:(NSString*)name inBundle:(NSBundle *)bundle;
+@end
+
+@implementation UIImage (imageNamedInBundle)
++ (UIImage*)imageNamed:(NSString*)name inBundle:(NSBundle *)bundle
+{
+    if ([UIImage respondsToSelector:@selector(imageNamed:inBundle:compatibleWithTraitCollection:)])
+    {
+        return [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
+    }
+    else
+    {
+        UIImage *image = [UIImage imageWithContentsOfFile:[[bundle resourcePath] stringByAppendingPathComponent:name]];
+        return image;
+    }
+}
+@end
+
+@interface SlateActivityIndicatorView ()
+
+- (UIImage *)activityIndicatorImageWithStyle:(SlateActivityIndicatorViewStyle)style;
+
+@end
+
 @implementation SlateActivityIndicatorView
 {
     BOOL                         _animating;
@@ -92,34 +119,43 @@
             f.size = CGSizeMake(76.0, 76.0);
         }
         f.origin = CGPointMake(floorf((self.bounds.size.width - f.size.width) * 0.5f), floorf((self.bounds.size.height - f.size.height) * 0.5f));
-
+        
         _image = [[UIImageView alloc] initWithFrame:f];
-        if (_style == ActivityIndicatorViewStyleWhite)
-        {
-            _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/ipad_white"];
-            if (IsPhone)
-            {
-                _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/iphone_white"];
-            }
-        }
-        else if (_style == ActivityIndicatorViewStyleWhiteLarge)
-        {
-            _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/white_large"];
-        }
-        else if (_style == ActivityIndicatorViewStyleGray)
-        {
-            _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/ipad_gray"];
-            if (IsPhone)
-            {
-                _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/iphone_gray"];
-            }
-        }
-        else
-        {
-            _image.image = [UIImage imageNamed:@"ActivityIndicator.bundle/gray_large"];
-        }
+        _image.image = [self activityIndicatorImageWithStyle:self.style];
         [self addSubview:_image];
     }
+}
+
+- (UIImage *)activityIndicatorImageWithStyle:(SlateActivityIndicatorViewStyle)style
+{
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    UIImage *image = nil;
+    
+    if (style == ActivityIndicatorViewStyleWhite)
+    {
+        image = [UIImage imageNamed:@"ActivityIndicator.bundle/ipad_white" inBundle:bundle];
+        if (IsPhone)
+        {
+            image = [UIImage imageNamed:@"ActivityIndicator.bundle/iphone_white" inBundle:bundle];
+        }
+    }
+    else if (style == ActivityIndicatorViewStyleWhiteLarge)
+    {
+        image = [UIImage imageNamed:@"ActivityIndicator.bundle/white_large" inBundle:bundle];
+    }
+    else if (style == ActivityIndicatorViewStyleGray)
+    {
+        image = [UIImage imageNamed:@"ActivityIndicator.bundle/ipad_gray" inBundle:bundle];
+        if (IsPhone)
+        {
+            image = [UIImage imageNamed:@"ActivityIndicator.bundle/iphone_gray" inBundle:bundle];
+        }
+    }
+    else
+    {
+        image = [UIImage imageNamed:@"ActivityIndicator.bundle/gray_large" inBundle:bundle];
+    }
+    return image;
 }
 
 - (void)startAnimating
