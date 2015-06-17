@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version          = "0.1.0"
   s.summary          = "A custom activity indicator view."
   s.description      = <<-DESC
-			                    A custom activity indicator view.
+			                    A custom activity indicator view. Support white, gray, white large, gray large styles.
                        DESC
   s.homepage         = "https://github.com/mmslate/SlateActivityIndicatorView"
   s.license          = 'MIT'
