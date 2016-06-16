@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
 			                    A custom activity indicator view. Support white, gray, white large, gray large styles.
                        DESC
   s.homepage         = "https://github.com/islate/SlateActivityIndicatorView"
-  s.license          = 'MIT'
+  s.license          = 'Apache 2.0'
   s.author           = { "wangliqun" => "2005wangliqun@163.com", "linyize" => "linyize@gmail.com" }
   s.source           = { :git => "https://github.com/islate/SlateActivityIndicatorView.git", :tag => s.version.to_s }
   s.platform     = :ios, '7.0'
